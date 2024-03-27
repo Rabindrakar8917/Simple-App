@@ -1,0 +1,18 @@
+<div class="cards">
+    <div class="contents" *ngFor="let details of homeDetails" >
+       <p class="con-img"> {{details.body}}</p>
+        <div class="child-content">
+            <img src="https://source.unsplash.com/400x400/?Flower" alt="" />
+            <p class="head">
+                {{details.title}}
+            </p>
+        </div>
+        <div class="child-content-foot">
+            <p class="footer">
+                <!-- <input type="hidden" [(ngModel)]="id" > -->
+               {{userDetails.name}}
+            </p>
+        </div>
+    </div>
+    
+</div>
