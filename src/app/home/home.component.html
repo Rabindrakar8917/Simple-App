@@ -1,6 +1,7 @@
 <div class="cards">
     <div class="contents" *ngFor="let details of homeDetails" >
        <p class="con-img"> {{details.body}}</p>
+       <p><button (click)="goToPostDetails(details.id)">View Details</button></p>
         <div class="child-content">
             <img src="https://source.unsplash.com/400x400/?Flower" alt="" />
             <p class="head">
@@ -10,7 +11,7 @@
         <div class="child-content-foot">
             <p class="footer">
                 <!-- <input type="hidden" [(ngModel)]="id" > -->
-               {{userDetails.name}}
+               {{details.authorName}}
             </p>
         </div>
     </div>

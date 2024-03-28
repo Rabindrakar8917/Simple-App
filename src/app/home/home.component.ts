@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HomeService } from '../service/home.service';
 import { UserService } from '../service/user.service';
 @Component({
@@ -10,22 +11,21 @@ export class HomeComponent implements OnInit {
   public homeDetails: any = [];
   public userDetails:any;
   public id:any;
-  public i=10;
-  constructor(private _homeService: HomeService,private _userService : UserService) {}
+  constructor(private _homeService: HomeService,private _userService : UserService,private router:Router) {}
   ngOnInit(): void {
     
    
     this._homeService
-    .getHome()
-    .subscribe((data) =>
+    .getPostsAndUsers()
+    .subscribe((data:any) =>
       {
         this.homeDetails = data;
         
-        this.fetching(this.homeDetails[this.i].userId)
+        
       });
   }
-  fetching(id:number):void{
-    this._userService.getUser(id)
-    .subscribe((data1) => (this.userDetails = data1));
+  goToPostDetails(postId: number): void {
+    this.router.navigate(['/post', postId]);
   }
+  
 }

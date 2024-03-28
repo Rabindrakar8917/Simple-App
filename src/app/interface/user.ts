@@ -1,4 +1,5 @@
 export interface Iuser{
+    find(arg0: (u: any) => boolean): string
     id:number,
     name:string,
     username:string,
