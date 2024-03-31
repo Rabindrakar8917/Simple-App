@@ -1,0 +1,15 @@
+.text-white{
+    background-color: white;
+
+}
+*{
+    margin:0;
+    padding:0;
+    
+}
+.main{
+    margin-bottom: 20px;
+}
+.a{
+    margin: 20px;
+}

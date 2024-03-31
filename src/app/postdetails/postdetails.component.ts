@@ -1,7 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../service/post-service.service';
+import { Ipost } from '../interface/postdetails';
 
 @Component({
   selector: 'app-post-details',
@@ -9,42 +9,29 @@ import { PostService } from '../service/post-service.service';
   styleUrls: ['./postdetails.component.css']
 })
 export class PostDetailsComponent implements OnInit {
-  postId: any;
-  postDetails: any;
-  comments :any=[];
+  postId?: number;
+  public postDetails?: Ipost;
+  public comments :any=[];
   constructor(private route: ActivatedRoute, private postService: PostService) { }
 
-  async ngOnInit(): Promise<void> {
-    this.route.params.subscribe(async params => {
-      this.postId = params['id'];
-      await this.fetchPostDetails();
-      this.fetchComments();
+   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.postId = parseInt(params['id']);
+      this.fetchPostDetails(this.postId);
+      this.fetchComments(this.postId);
+     
       
     });
   }
+  fetchPostDetails(id:number): void {
+    this.postService.getPost(id)
+      .subscribe(post => {
+        this.postDetails = post;
 
-  // fetchPostDetails(): void {
-  //   this.postService.getPost(this.postId)
-  //     .subscribe(post => {
-  //       this.postDetails = post;
-
-  //     });
-  // }
-  async fetchPostDetails(): Promise<void> {
-    this.postService.getPost(this.postId)
-      .subscribe(
-        post => {
-          console.log('Post details:', post); // Log the response
-          this.postDetails = post;
-        },
-        error => {
-          console.error('Error fetching post details:', error);
-        }
-      );
+      });
   }
-  
-  fetchComments():void{
-    this.postService.getComments(this.postId)
+  fetchComments(id:number):void{
+    this.postService.getComments(id)
     .subscribe(comments => this.comments=comments);
   }
 }
